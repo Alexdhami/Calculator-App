@@ -2,6 +2,7 @@
 
 A sleek and functional GUI Calculator built using **Pygame**. This calculator supports basic arithmetic operations and displays results in both standard and scientific notation when necessary.
 
+![Calculator main screen](screenshot/screenshot.png)
 ## Features
 
 - Interactive button layout with clean UI  
