@@ -23,7 +23,7 @@ Make sure you have Python and Pygame installed.
 
 ```bash
 git clone https://github.com/Alexdhami/Calculator-App.git
-cd Calculator-App
+cd [directory where you cloned it]
 ```
 
 ### 2. Install dependencies
