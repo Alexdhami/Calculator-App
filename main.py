@@ -6,8 +6,6 @@ width = 500
 height = width * 155/100
 window = pygame.display.set_mode((width,height))
 pygame.display.set_caption('Calculator')
-fps = 60
-clock = pygame.time.Clock()
             
 calc = calculator.Calc(window,width,height)
 while True:
@@ -25,4 +23,3 @@ while True:
     calc.screening_all(mouse_pos)
     
     pygame.display.update()
-    clock.tick(fps)
