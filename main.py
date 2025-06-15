@@ -22,7 +22,7 @@ while True:
         calculator.button_press(event,calc)
 
     mouse_pos = pygame.mouse.get_pos()
-    calc.calculations(mouse_pos)
+    calc.screening_all(mouse_pos)
     
     pygame.display.update()
     clock.tick(fps)
