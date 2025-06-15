@@ -68,7 +68,6 @@ class Calc:
         if len(self.result) >max_len:
             i = len(self.result) - max_len
             messege = messege[i:]
-
         font_surf = font.render(f"{messege}",False,'white')
 
         font_rect = font_surf.get_rect(midleft = (self.width*6/100,self.height*25/100))
@@ -244,16 +243,26 @@ class Calc:
                 try:
                     expression = self.result.replace('x', '*').replace('%', '/100')
                     result = float(self.arithmetic_operation(expression))
-                    result_str = str(result)
 
+                    # Fix floating point display error (like 0.1 + 0.2)
+                    rounded_result = round(result, 10)  # Round to avoid long float errors
+                    result_str = str(rounded_result)
+                    if rounded_result.is_integer():
+                        result_str = str(int(rounded_result))
+                    else:
+                        result_str = str(rounded_result)
+
+                    # Check if it's too long for display
                     if len(result_str) > 9:
-                        self.result = f'{result:.6e}'  # scientific notation
+                        self.result = f'{rounded_result:.6e}'  # scientific notation
                     else:
                         self.result = result_str
-                except:
+
+                except Exception as e:
                     self.result = 'Error'
 
                 self.mouse_down = False
+
 
 def button_press(event,calc):
     if event.type == pygame.KEYDOWN:
