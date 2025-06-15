@@ -349,15 +349,23 @@ def button_press(event,calc):
             if event.key == pygame.K_RETURN or event.key == pygame.K_EQUALS or event.key == pygame.K_KP_ENTER:
                 try:
                     expression = calc.result.replace('x', '*').replace('%', '/100')
-
                     result = float(calc.arithmetic_operation(expression))
-                    result_str = str(result)
 
+                    # Fix floating point display error (like 0.1 + 0.2)
+                    rounded_result = round(result, 10)  # Round to avoid long float errors
+                    result_str = str(rounded_result)
+                    if rounded_result.is_integer():
+                        result_str = str(int(rounded_result))
+                    else:
+                        result_str = str(rounded_result)
+
+                    # Check if it's too long for display
                     if len(result_str) > 9:
-                        calc.result = f'{result:.6e}'  # scientific notation
+                        calc.result = f'{rounded_result:.6e}'  # scientific notation
                     else:
                         calc.result = result_str
-                except:
+
+                except Exception as e:
                     calc.result = 'Error'
 
             if event.key == pygame.K_PERIOD or event.key == pygame.K_KP_PERIOD:
