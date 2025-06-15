@@ -44,6 +44,8 @@ python main.py
 
 ```
 Calculator-App/
+├── screenshots
+├── .gitignore
 ├── main.py
 ├── calc.py
 └── README.md
