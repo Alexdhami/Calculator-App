@@ -10,13 +10,13 @@ class Calc:
         self.mouse_down = False
         self.result = "0"
 
-    def expression_result(self,expr):
+    def arithmetic_operation(self,expr):
         # This is for doing expression like leading zeros except 0.x 
         final = ''
-        # expr = expr.replace('%','/100')
 
         # Spliting the expression to the mathematical symbol
         lis = re.split(r'([/\*\+\-\(\)])', expr) 
+
         # Note: The backslash (\) is used to escape special characters.
         # For example, the minus (-) is a range operator in regex, so we escape it to match the literal dash.
         # Similarly, parentheses are also special characters in regex (used for grouping), 
@@ -56,7 +56,7 @@ class Calc:
         
         return button_rect
 
-    def get_result_label(self):
+    def result_box(self):
         # Draw The surface
         font = pygame.font.SysFont('Arial',int(self.width*12.5/100))
         label_surface = pygame.Surface((self.width*95/100,self.height*13/100),pygame.SRCALPHA)
@@ -76,8 +76,8 @@ class Calc:
         self.window.blit(label_surface,label_surface_rect)
         self.window.blit(font_surf,font_rect)
 
-    def calculations(self,mouse_pos):
-        self.get_result_label()
+    def screening_all(self,mouse_pos):
+        self.result_box()
         
         button_0 = self.get_buttons(self.width* 14.25/100,self.height * 91.3/100,(self.width* 14.25/100,self.height * 91.3/100),0)
         button_dot = self.get_buttons(self.width* 37.25/100,self.height * 91.3/100,(self.width* 37.25/100,self.height * 91.3/100),'.')
@@ -113,80 +113,85 @@ class Calc:
                 self.mouse_down = False
         if button_1.collidepoint(mouse_pos):
             if self.mouse_down:
-                if self.result == '0':
+                if self.result == '0' or self.result == 'Error':
                     self.result = '1'
                 else:
                     self.result += '1'
                 self.mouse_down = False
         if button_2.collidepoint(mouse_pos):
             if self.mouse_down:
-                if self.result == '0':
+                if self.result == '0' or self.result == 'Error':
                     self.result = '2'
                 else:
                     self.result += '2'
                 self.mouse_down = False
         if button_3.collidepoint(mouse_pos):
             if self.mouse_down:
-                if self.result == '0':
+                if self.result == '0' or self.result == 'Error':
                     self.result = '3'
                 else:
                     self.result += '3'
                 self.mouse_down = False
         if button_4.collidepoint(mouse_pos):
             if self.mouse_down:
-                if self.result == '0':
+                if self.result == '0' or self.result == 'Error':
                     self.result = '4'
                 else:
                     self.result += '4'
                 self.mouse_down = False
         if button_5.collidepoint(mouse_pos):
             if self.mouse_down:
-                if self.result == '0':
+                if self.result == '0' or self.result == 'Error':
                     self.result = '5'
                 else:
                     self.result += '5'
                 self.mouse_down = False
         if button_6.collidepoint(mouse_pos):
             if self.mouse_down:
-                if self.result == '0':
+                if self.result == '0' or self.result == 'Error':
                     self.result = '6'
                 else:
                     self.result += '6'
                 self.mouse_down = False
         if button_7.collidepoint(mouse_pos):
             if self.mouse_down:
-                if self.result == '0':
+                if self.result == '0' or self.result == 'Error':
                     self.result = '7'
                 else:
                     self.result += '7'
                 self.mouse_down = False
         if button_8.collidepoint(mouse_pos):
             if self.mouse_down:
-                if self.result == '0':
+                if self.result == '0' or self.result == 'Error':
                     self.result = '8'
                 else:
                     self.result += '8'
                 self.mouse_down = False
         if button_9.collidepoint(mouse_pos):
             if self.mouse_down:
-                if self.result == '0':
+                if self.result == '0' or self.result == 'Error':
                     self.result = '9'
                 else:
                     self.result += '9'
                 self.mouse_down = False
         if button_left_braces.collidepoint(mouse_pos):
             if self.mouse_down:
-                if self.result == '0':
+                if self.result == '0' or self.result == 'Error':
                     self.result = '('
                 else:
                     self.result += '('
                 self.mouse_down = False
         if button_right_braces.collidepoint(mouse_pos):
             if self.mouse_down:
-                self.result += ')'
+                if self.result == 'Error':
+                    self.result = ')'
+                else:
+
+                    self.result += ')'
                 self.mouse_down = False
         if button_remove.collidepoint(mouse_pos):
             if self.mouse_down:
+
                 self.result = '0'
                 self.mouse_down = False
         if button_dot.collidepoint(mouse_pos):
@@ -194,33 +199,51 @@ class Calc:
                 if not self.result:
                     self.result += '0.'
                 else:
-                    self.result += '.'
+                    if self.result == 'Error':
+                        self.result = '0.'
+                    else:
+                        self.result += '.'
                 self.mouse_down = False
         if button_percentage.collidepoint(mouse_pos):
             if self.mouse_down:
-                self.result += '%'
+                if self.result == 'Error':
+                    self.result = '0%'
+                else:
+                    self.result += '%'
                 self.mouse_down = False
         if button_plus.collidepoint(mouse_pos):
             if self.mouse_down:
-                self.result += '+'
+                if self.result == 'Error':
+                    self.result = '0+'
+                else:
+                    self.result += '+'
                 self.mouse_down = False
         if button_minus.collidepoint(mouse_pos):
             if self.mouse_down:
-                self.result += '-'
+                if self.result == 'Error':
+                    self.result = '0-'
+                else:
+                    self.result += '-'
                 self.mouse_down = False
         if button_multi.collidepoint(mouse_pos):
             if self.mouse_down:
-                self.result += 'x'
+                if self.result == 'Error':
+                    self.result = '0x'
+                else:
+                    self.result += 'x'
                 self.mouse_down = False
         if button_devide.collidepoint(mouse_pos):
             if self.mouse_down:
-                self.result += '/'
+                if self.result == 'Error':
+                    self.result = '0/'
+                else:
+                    self.result += '/'
                 self.mouse_down = False   
         if button_equals.collidepoint(mouse_pos):
             if self.mouse_down:
                 try:
                     expression = self.result.replace('x', '*').replace('%', '/100')
-                    result = float(self.expression_result(expression))
+                    result = float(self.arithmetic_operation(expression))
                     result_str = str(result)
 
                     if len(result_str) > 9:
@@ -238,57 +261,87 @@ def button_press(event,calc):
                 if calc.result == '0':
                     calc.result = '0'
                 else:
-                    calc.result += '0'
+                    if calc.result == 'Error':
+                        calc.result = '0'
+                    else:
+                        calc.result += '0'
             if event.key == pygame.K_1 or event.key == pygame.K_KP1:
                 if calc.result == '0':
                     calc.result = '1'
                 else:
-                    calc.result += '1'
+                    if calc.result == 'Error':
+                        calc.result = '1'
+                    else:
+                        calc.result += '1'
             if event.key == pygame.K_2 or event.key == pygame.K_KP2:
                 if calc.result == '0':
                     calc.result = '2'
                 else:
-                    calc.result += '2'
+                    if calc.result == 'Error':
+                        calc.result = '2'
+                    else:
+                        calc.result += '2'
             if event.key == pygame.K_3 or event.key == pygame.K_KP3:
                 if calc.result == '0':
                     calc.result = '3'
                 else:
-                    calc.result += '3'
+                    if calc.result == 'Error':
+                        calc.result = '3'
+                    else:
+                        calc.result += '3'
             if event.key == pygame.K_4 or event.key == pygame.K_KP4:
                 if calc.result == '0':
                     calc.result = '4'
                 else:
-                    calc.result += '4'
+                    if calc.result == 'Error':
+                        calc.result = '4'
+                    else:
+                        calc.result += '4'
             if event.key == pygame.K_5 or event.key == pygame.K_KP5:
                 if calc.result == '0':
                     calc.result = '5'
                 else:
-                    calc.result += '5'
+                    if calc.result == 'Error':
+                        calc.result = '5'
+                    else:
+                        calc.result += '5'
             if event.key == pygame.K_6 or event.key == pygame.K_KP6:
                 if calc.result == '0':
                     calc.result = '6'
                 else:
-                    calc.result += '6'
+                    if calc.result == 'Error':
+                        calc.result = '6'
+                    else:
+                        calc.result += '6'
             if event.key == pygame.K_7 or event.key == pygame.K_KP7:
                 if calc.result == '0':
                     calc.result = '7'
                 else:
-                    calc.result += '7'
+                    if calc.result == 'Error':
+                        calc.result = '7'
+                    else:
+                        calc.result += '7'
             if event.key == pygame.K_8 or event.key == pygame.K_KP8:
                 if calc.result == '0':
                     calc.result = '8'
                 else:
-                    calc.result += '8'
+                    if calc.result == 'Error':
+                        calc.result = '8'
+                    else:
+                        calc.result += '8'
             if event.key == pygame.K_9 or event.key == pygame.K_KP9:
                 if calc.result == '0':
                     calc.result = '9'
                 else:
-                    calc.result += '9'
+                    if calc.result == 'Error':
+                        calc.result = '9'
+                    else:
+                        calc.result += '9'
             if event.key == pygame.K_RETURN or event.key == pygame.K_EQUALS or event.key == pygame.K_KP_ENTER:
                 try:
                     expression = calc.result.replace('x', '*').replace('%', '/100')
 
-                    result = float(calc.expression_result(expression))
+                    result = float(calc.arithmetic_operation(expression))
                     result_str = str(result)
 
                     if len(result_str) > 9:
@@ -302,22 +355,40 @@ def button_press(event,calc):
                 if calc.result == '0':
                     calc.result = '0.'
                 else:
-                    calc.result += '.'
+                    if calc.result == 'Error':
+                        calc.result = '0.'
+                    else:
+                        calc.result += '.'
             
             if event.key == pygame.K_PERCENT:    
-                calc.result += '%'
+                if calc.result == 'Error':
+                        calc.result = '0%'
+                else:
+                    calc.result += '%'
 
             if event.key == pygame.K_EQUALS and pygame.key.get_mods() & pygame.KMOD_SHIFT or event.key == pygame.K_KP_PLUS:
-                calc.result += '+'
+                if calc.result == 'Error':
+                        calc.result = '0+'
+                else:
+                    calc.result += '+'
       
             if event.key == pygame.K_MINUS or event.key == pygame.K_KP_MINUS:
-                calc.result += '-'
+                if calc.result == 'Error':
+                        calc.result = '0-'
+                else:
+                    calc.result += '-'
 
             if event.key == pygame.K_ASTERISK or event.key == pygame.K_KP_MULTIPLY:
-                calc.result += '*'
+                if calc.result == 'Error':
+                        calc.result = '0x'
+                else:
+                    calc.result += 'x'
 
             if event.key == pygame.K_SLASH or event.key == pygame.K_KP_DIVIDE:
-                calc.result += '/'
+                if calc.result == 'Error':
+                        calc.result = '0/'
+                else:
+                    calc.result += '/'
 
             if event.key == pygame.K_BACKSPACE:
 
